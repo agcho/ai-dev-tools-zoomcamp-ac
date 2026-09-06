@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Manage {{ household.name }}</h1>
+<p><a href="{% url 'chores:member-create' %}">Create roommate account</a></p>
+
+<h2>Members and rotation order</h2>
+<ol>
+    {% for membership in memberships %}
+        <li>
+            {{ membership.user.get_username }} — {{ membership.get_role_display }}
+            {% if membership.is_active %}
+                <form method="post" action="{% url 'chores:member-move' membership.pk 'up' %}" style="display:inline">
+                    {% csrf_token %}<button type="submit">Move up</button>
+                </form>
+                <form method="post" action="{% url 'chores:member-move' membership.pk 'down' %}" style="display:inline">
+                    {% csrf_token %}<button type="submit">Move down</button>
+                </form>
+                {% if membership.role == 'member' %}
+                    <form method="post" action="{% url 'chores:member-deactivate' membership.pk %}" style="display:inline">
+                        {% csrf_token %}<button type="submit">Deactivate</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                — Deactivated
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>
+{% endblock %}

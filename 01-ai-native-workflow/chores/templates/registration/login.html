@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Log in | Household Chores{% endblock %}
+
+{% block content %}
+<h1>Log in</h1>
+{% if form.errors %}<p>Your username or password was incorrect.</p>{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    <button type="submit">Log in</button>
+</form>
+{% endblock %}
+

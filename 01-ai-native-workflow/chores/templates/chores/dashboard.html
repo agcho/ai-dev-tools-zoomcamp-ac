@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ request.household_membership.household.name }}</h1>
+<ul>
+    {% for chore in chores %}
+        <li><a href="{% url 'chores:chore-detail' chore.pk %}">{{ chore.title }}</a></li>
+    {% empty %}
+        <li>No chores yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

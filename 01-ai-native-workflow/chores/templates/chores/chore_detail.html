@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ chore.title }}</h1>
+<p>Assigned to {{ chore.assignee.user.get_username }}</p>
+<p>Due {{ chore.due_date }}</p>
+{% endblock %}
+
